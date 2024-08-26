@@ -1,1 +1,110 @@
 
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bitcoin Address Interactions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Enter a Bitcoin Address</h1>
+    <form method="POST" action="/get_addresses">
+        <input type="text" name="address" placeholder="Enter Bitcoin address">
+        <button type="submit">Get Interacting Addresses</button>
+    </form>
+
+    <div>
+        <label for="sort-option">Sort by:</label>
+        <select id="sort-option">
+            <option value="recent">Recent</option>
+            <option value="balance">Balance</option>
+        </select>
+    </div>
+
+    <table id="address-table">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)">Address</th>
+                <th onclick="sortTable(1)">Balance</th> 
+            </tr>
+        </thead>
+        <tbody id="address-list"></tbody>
+    </table>
+
+    <script>
+        // ... (JavaScript code from previous response, with modifications below)
+
+        const sortOption = document.getElementById('sort-option');
+
+        // ... (fetch and display data logic)
+
+            // Add balance data to the table (you'll need to fetch this from the backend)
+            data.forEach(addressData => {
+                const row = addressList.insertRow();
+                const addressCell = row.insertCell();
+                const balanceCell = row.insertCell(); 
+
+                addressCell.textContent = addressData.address;
+                balanceCell.textContent = addressData.balance; 
+            });
+
+        // Add sorting functionality (you'll need to implement this)
+        function sortTable(columnIndex) {
+            // ... (Implementation for sorting the table based on the selected column and sort option)
+        }
+    </script>
+</body>
+</html>
+
+
+
+<script>
+    const form = document.querySelector('form');
+    const addressList = document.getElementById('address-list');
+    const addressTable = document.getElementById('address-table');
+
+    // Initially hide the table
+    addressTable.style.display = 'none';
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch('/get_addresses', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            const data = await response.json();
+            addressList.innerHTML = ''; // Clear previous results
+
+            if (data.error) {
+                addressList.innerHTML = `<tr><td colspan="2">${data.error}</td></tr>`;
+            } else {
+                data.forEach(addressData => {
+                    const row = addressList.insertRow();
+                    const addressCell = row.insertCell();
+                    const balanceCell = row.insertCell();
+
+                    addressCell.textContent = addressData.address;
+                    balanceCell.textContent = addressData.balance;
+                });
+
+                // Show the table after data is fetched
+                addressTable.style.display = 'table'; 
+            }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+            addressList.innerHTML = `<tr><td colspan="2">An error occurred while fetching data.</td></tr>`;
+        }
+    });
+
+    // ... (sorting functionality - you'll need to implement this)
+</script>
