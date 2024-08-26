@@ -1,1 +1,71 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+}
 
+h1 {
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    width: 300px;
+}
+
+button[type="submit"] {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Add transition for smooth animation */
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Add animation for button click */
+button[type="submit"]:active {
+    transform: scale(0.95); /* Slightly shrink the button on click */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    cursor: pointer; /* Indicate that headers are sortable */
+}
+
+/* Style for sorting icons (you'll need to add these icons yourself) */
+th .sort-icon {
+    margin-left: 5px;
+}
+/* Initially hide the table */
+#address-table {
+    display: none; 
+}
